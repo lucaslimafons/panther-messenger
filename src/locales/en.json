@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "required_field": "%s is required."
+  },
+  "labels": {
+    "message": "Message"
+  }
+}

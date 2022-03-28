@@ -1,6 +1,9 @@
 {
   "errors": {
-    "required_field": "%s is required."
+    "required_field": "%s is required.",
+    "load_kakfa": "Error loading kafka consumers/producers.",
+    "create": "Error creating %s",
+    "find_all": "Error finding all %s"
   },
   "labels": {
     "message": "Message"

@@ -1,7 +1,31 @@
 version: '3'
 services:
+  # panther-api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     DB_USER: '${DB_USER}'
+  #     DB_PASSWORD: '${DB_PASSWORD}'
+  #     DB_NAME: '${DB_NAME}'
+  #     DB_HOST: 'postgres'
+  #     DB_PORT: '${DB_PORT}'
+  #     ENV_NAME: 'development'
+  #     NODE_ENV: 'development'
+  #     KAFKA_CLIENT_ID: '${KAFKA_CLIENT_ID}'
+  #     KAFKA_SERVER: 'kafka:9092'
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
   postgres:
     image: 'postgres:11.15'
+    networks:
+      - backend
     restart: always
     ports:
       - '5430:5432'
@@ -13,10 +37,15 @@ services:
     image: 'bitnami/zookeeper:latest'
     ports:
       - '2181:2181'
+    networks:
+      - backend
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOOKEEPER_CLIENT_PORT=2181
   kafka:
     image: 'bitnami/kafka:latest'
+    networks:
+      - backend
     ports:
       - '9092:9092'
       - '9093:9093'
@@ -29,3 +58,6 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
+networks:
+  backend:
+    driver: bridge

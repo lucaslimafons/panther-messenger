@@ -2,7 +2,7 @@ import express from 'express'
 import cors from './cors'
 import logger from 'morgan'
 import compression from 'compression'
-// import { router } from '@/routes'
+import { router } from '@/routes'
 import rateLimit from 'express-rate-limit'
 
 export default ({ app }) => {
@@ -23,5 +23,5 @@ export default ({ app }) => {
     })
   )
   app.use(cors())
-  // app.use('/', router)
+  app.use('/api', router)
 }
